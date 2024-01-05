@@ -6,8 +6,8 @@ type Props = {}
 export default function Header({}: Props) {
   return (
     <div className='border-b flex justify-between'>
-      <Link href='/' className='text-4xl px-2 py-4 '>
-        NEO
+      <Link href='/' className='text-4xl px-2 py-4 font-bold '>
+        NEO BRUTALIST
       </Link>
       <AuthButton />
     </div>
