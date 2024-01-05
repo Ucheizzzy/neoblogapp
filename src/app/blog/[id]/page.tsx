@@ -6,9 +6,15 @@ export default async function page({ params }: { params: { id: string } }) {
       id: Number(params.id),
     },
   })
-  console.log(post)
 
-  return <div className='container-sm mt-6'>
-    {post && <></>}
-  </div>
+  return (
+    <div className='container-sm mt-6'>
+      {post && (
+        <>
+          <h1 className='text-5xl mb-5'>{post.title}</h1>
+          <p>{post.content}</p>
+        </>
+      )}
+    </div>
+  )
 }
