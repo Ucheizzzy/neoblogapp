@@ -1,15 +1,16 @@
+'use client'
 import Link from 'next/link'
 import AuthButton from '../auth/AuthButton'
-
-type Props = {}
-
-export default function Header({}: Props) {
+import { SessionProvider } from 'next-auth/react'
+export default function Header() {
   return (
-    <div className='border-b flex justify-between'>
-      <Link href='/' className='text-4xl px-2 py-4 font-bold '>
-        NEO BRUTALIST
-      </Link>
-      <AuthButton />
-    </div>
+    <SessionProvider>
+      <div className='border-b flex justify-between'>
+        <Link href='/' className='text-4xl px-2 py-4 font-bold '>
+          NEO BRUTALIST
+        </Link>
+        <AuthButton />
+      </div>
+    </SessionProvider>
   )
 }
