@@ -2,7 +2,12 @@ import prisma from '@/utils/db'
 import PostCard from './PostCard'
 
 export default async function Post() {
-  const posts = await prisma.post.findMany()
+  const posts = await prisma.post.findMany({
+    take: 3,
+    orderBy: {
+      
+    },
+  })
 
   const bgClasses = ['bg-emerald-500', 'bg-blue-500', 'bg-yellow-500']
   return (
