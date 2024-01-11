@@ -6,11 +6,14 @@ import type { Prisma, User } from '@prisma/client'
 import { createPost } from '@/actions/publishPost'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
+import { UploadButton } from '@/utils/uploadthing'
+
 export default function NewBlogForm() {
   const { data: session, status } = useSession()
 
   const [submitted, setSubmitted] = useState<boolean>(false)
   const [postId, setPostId] = useState<number | null>(null)
+  const [thumbnail, setThumbnail] = useState<string | null>(null)
   if (!session && status !== 'loading') redirect('/')
 
   type formDataType = {
@@ -38,6 +41,7 @@ export default function NewBlogForm() {
         title: formData.title,
         content: formData.content,
         authorId: id,
+        imgURL: thumbnail,
       }
       const post = await createPost(newPost)
       toast.success('post created successfully')
@@ -90,7 +94,33 @@ export default function NewBlogForm() {
           required
           onChange={handleChange}
         ></textarea>
-
+        <div className='self-start'>
+          {thumbnail && (
+            <img
+              src={thumbnail}
+              alt='thumbnail'
+              className='w-20 h-20 object-cover rounded-full'
+            />
+          )}
+          <label className='text-slate-600 mb-3 mt-3'>
+            {thumbnail ? 'Change Image' : ' Add thumbnail(optional)'}
+          </label>
+          <UploadButton
+            className='items-start mt-3 '
+            endpoint='imageUploader'
+            onClientUploadComplete={(res) => {
+              // Do something with the response
+              if (res) {
+                setThumbnail(res[0].url)
+                toast.success('Upload Completed')
+              }
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              toast.error(error.message)
+            }}
+          />
+        </div>
         <button
           type='submit'
           className='text-white bg-indigo-400 px-4 py-2 sm:px-6 sm:py-4 mt-6 border-2 rounded shadow-[0.25rem_0.25rem_0px_0px_rgba(0,0,0,1)]'
