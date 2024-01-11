@@ -3,6 +3,8 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 export default function AuthButton() {
   const { data: session, status } = useSession()
+  // console.log(session)
+
   if (status === 'loading')
     return (
       <button className='h-5 w-5 animate-spin rounded-full border-b-2 border-white my-auto mx-5'></button>
