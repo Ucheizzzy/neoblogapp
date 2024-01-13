@@ -2,18 +2,23 @@
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import type { Prisma, User } from '@prisma/client'
+import type { Category, Prisma, User } from '@prisma/client'
 import { createPost } from '@/actions/publishPost'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 import { UploadButton } from '@/utils/uploadthing'
+import CategoryDropdown from './CategoryDropdown'
 
-export default function NewBlogForm() {
+type Props = {
+  categories: Category[]
+}
+export default function NewBlogForm({ categories }: Props) {
   const { data: session, status } = useSession()
 
   const [submitted, setSubmitted] = useState<boolean>(false)
   const [postId, setPostId] = useState<number | null>(null)
   const [thumbnail, setThumbnail] = useState<string | null>(null)
+  const [categoryId, setCategoryId] = useState<number | null>(null)
   if (!session && status !== 'loading') {
     return redirect('/')
   }
@@ -44,6 +49,11 @@ export default function NewBlogForm() {
         content: formData.content,
         authorId: id,
         imgURL: thumbnail,
+      }
+      if (categoryId) {
+        newPost.categories = {
+          connect: [{ id: categoryId }],
+        }
       }
       const post = await createPost(newPost)
       toast.success('post created successfully')
@@ -121,6 +131,12 @@ export default function NewBlogForm() {
               // Do something with the error.
               toast.error(error.message)
             }}
+          />
+
+          <CategoryDropdown
+            list={categories}
+            selected={categoryId}
+            setSelected={(selected: number) => setCategoryId(selected)}
           />
         </div>
         <button

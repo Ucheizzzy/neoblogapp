@@ -1,9 +1,11 @@
+import { getCategories } from '@/actions/getCategories'
 import NewBlogForm from './NewBlogForm'
 
-export default function page() {
+export default async function page() {
+  const categories = await getCategories()
   return (
     <div>
-      <NewBlogForm />
+      <NewBlogForm categories={categories} />
     </div>
   )
 }
