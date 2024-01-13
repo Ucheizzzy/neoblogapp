@@ -14,7 +14,9 @@ export default function NewBlogForm() {
   const [submitted, setSubmitted] = useState<boolean>(false)
   const [postId, setPostId] = useState<number | null>(null)
   const [thumbnail, setThumbnail] = useState<string | null>(null)
-  if (!session && status !== 'loading') redirect('/')
+  if (!session && status !== 'loading') {
+    return redirect('/')
+  }
 
   type formDataType = {
     title: string
