@@ -1,6 +1,12 @@
+import CategorySelector, { CategorySelectorProps } from './CategorySelector'
+import PostList, { PostListProps } from './PostList'
 
-export default function AllPosts() {
+type Props = CategorySelectorProps & PostListProps
+export default function AllPosts({ categories, posts }: Props) {
   return (
-    <div>AllPosts</div>
+    <>
+      <CategorySelector />
+      <PostList />
+    </>
   )
 }
