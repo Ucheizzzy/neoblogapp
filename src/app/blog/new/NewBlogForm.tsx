@@ -1,6 +1,5 @@
 'use client'
 import { useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import type { Category, Prisma, User } from '@prisma/client'
 import { createPost } from '@/actions/publishPost'
@@ -14,14 +13,10 @@ type Props = {
 }
 export default function NewBlogForm({ categories }: Props) {
   const { data: session, status } = useSession()
-
   const [submitted, setSubmitted] = useState<boolean>(false)
   const [postId, setPostId] = useState<number | null>(null)
   const [thumbnail, setThumbnail] = useState<string | null>(null)
   const [categoryId, setCategoryId] = useState<number | null>(null)
-  if (!session && status !== 'loading') {
-    return redirect('/')
-  }
 
   type formDataType = {
     title: string
@@ -31,6 +26,17 @@ export default function NewBlogForm({ categories }: Props) {
     title: '',
     content: '',
   })
+  if (!session && status !== 'loading')
+    return (
+      <div className='py-2 container flex flex-col mt-12'>
+        <div className='flex flex-col flex-1 items-stretch justify-center h-full text-left border p-8'>
+          <h1 className='text-4xl'>You must be logged in to post:</h1>
+          <Link href='/' className='text-indigo-500 text-xl mt-4'>
+            Go back home or sign in!!
+          </Link>
+        </div>
+      </div>
+    )
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
