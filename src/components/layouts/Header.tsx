@@ -7,7 +7,7 @@ export default function Header() {
     <SessionProvider>
       <div className='border-b flex justify-between'>
         <Link href='/' className='text-4xl px-2 py-4 font-bold '>
-          NEO BRUTALIST
+          NEO BLOG
         </Link>
         <AuthButton />
       </div>

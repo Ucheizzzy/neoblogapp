@@ -1,10 +1,9 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 export default function Newsletter() {
-  const [subscribed, setSubscribed] = useState<boolean>(false)
-
   const {
     register,
     handleSubmit,
@@ -13,6 +12,7 @@ export default function Newsletter() {
   } = useForm()
   const onSubmit = async (data: FieldValues) => {
     await new Promise((resolve) => setTimeout(resolve, 3000))
+    toast.success('subscribed successfully')
     reset()
   }
   return (

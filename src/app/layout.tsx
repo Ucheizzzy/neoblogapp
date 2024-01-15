@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Neo App',
+  title: 'Neo Blog App',
   description: 'This is a blog website created inspired by Neo Brutalist',
 }
 

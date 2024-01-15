@@ -13,7 +13,7 @@ export type PostListProps = {
 
 export default function PostList(props: PostListProps) {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-3 gap-12 mt-4'>
+    <div className='grid grid-cols-1 sm:grid-cols-3 gap-12 mt-4'>
       {props.posts.length > 0
         ? props.posts.map((post: Post) => (
             <div
