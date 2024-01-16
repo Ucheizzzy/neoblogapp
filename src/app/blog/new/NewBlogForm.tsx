@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import Link from 'next/link'
 import { UploadButton } from '@/utils/uploadthing'
 import CategoryDropdown from './CategoryDropdown'
-export const dynamic = 'force-dynamic'
+
 type Props = {
   categories: Category[]
 }
